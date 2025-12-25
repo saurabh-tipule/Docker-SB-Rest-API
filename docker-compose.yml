@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  application: 
+    image: sb-rest-app
+    ports:
+      - "8080:8080"
+    networks: 
+      - springboot-db-net 
+    depends_on:
+      - mysql-db  
+    volumes:
+      - /data/sb-rest-app
+
+  mysql-db:
+    image: mysql:8.0
+    networks: 
+      - springboot-db-net 
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sbdb
+    volumes:
+      - /data/mysql
+networks:
+  springboot-db-net:
